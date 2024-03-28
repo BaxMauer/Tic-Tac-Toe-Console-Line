@@ -1,18 +1,21 @@
 package de.maxi_bauer.rendering;
 
 import de.maxi_bauer.data.GamePositions;
+import de.maxi_bauer.player.PlayerSymbol;
 
 public class CommandLineBoardRenderer implements BoardRenderer {
     @Override
     public void renderBoard(final GamePositions gamePositions) {
-        char[][] positions = gamePositions.positions();
+        clearConsole();
+
+        PlayerSymbol[][] positions = gamePositions.positions();
 
         for (int rowIdx = 0; rowIdx < positions.length; rowIdx++) {
-            char[] row = positions[rowIdx];
+            PlayerSymbol[] row = positions[rowIdx];
 
             for (int colIdx = 0; colIdx < row.length; colIdx++) {
-                char cell = row[colIdx];
-                System.out.printf(" %c ", cell);
+                PlayerSymbol cell = row[colIdx];
+                System.out.printf(" %c ", cell.symbol());
                 if (colIdx != row.length - 1) {
                     System.out.print("|");
                 }
@@ -25,6 +28,18 @@ public class CommandLineBoardRenderer implements BoardRenderer {
                 }
                 System.out.println();
             }
+        }
+    }
+
+    private static void clearConsole() {
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                System.out.print("\033[H\033[2J");
+            }
+        } catch (Exception ignored) {
+            throw new IllegalStateException("Clearing the console has gone horribly wrong!");
         }
     }
 }
