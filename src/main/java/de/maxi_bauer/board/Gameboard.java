@@ -1,8 +1,6 @@
 package de.maxi_bauer.board;
 
 import de.maxi_bauer.config.GameConfig;
-import de.maxi_bauer.data.GameMove;
-import de.maxi_bauer.data.GameState;
 import de.maxi_bauer.player.Player;
 import de.maxi_bauer.rendering.BoardRenderer;
 
@@ -11,7 +9,7 @@ import java.util.Arrays;
 import static de.maxi_bauer.config.GameConfig.BLANK_PLAYER_SYMBOL;
 
 public class Gameboard {
-    private final GamePositions positions = GamePositions.newPositions(GameConfig.GAME_POSITIONS_SIZE);
+    private GamePositions positions = GamePositions.newPositions(GameConfig.GAME_POSITIONS_SIZE);
     private final BoardRenderer boardRenderer;
     private final GameboardWinChecker winChecker;
     private GameState gameState = GameState.PLAYING;
@@ -43,5 +41,14 @@ public class Gameboard {
         return Arrays.stream(positions.positions())
                 .flatMap(Arrays::stream)
                 .noneMatch(ps -> ps.equals(BLANK_PLAYER_SYMBOL));
+    }
+
+    public void resetGame() {
+        this.positions = resetGame(this.positions);
+    }
+
+    private GamePositions resetGame(GamePositions positions) {
+        gameState = GameState.PLAYING;
+        return GamePositions.newPositions(positions.positions().length);
     }
 }

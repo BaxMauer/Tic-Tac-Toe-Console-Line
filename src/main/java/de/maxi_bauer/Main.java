@@ -11,7 +11,7 @@ import de.maxi_bauer.rendering.CommandLineBoardRenderer;
 
 import java.util.List;
 
-import static de.maxi_bauer.data.GameState.PLAYING;
+import static de.maxi_bauer.board.GameState.PLAYING;
 
 public class Main {
     public static void main(String[] args) {
@@ -26,27 +26,33 @@ public class Main {
 
         Gameboard gameboard = new Gameboard(renderer, winChecker);
 
-        int playerIndex = -1;
-        Player currentPlayer = players.getFirst();
+        do {
+            int playerIndex = -1;
+            Player currentPlayer = players.getFirst();
 
-        while (gameboard.getGameState() == PLAYING) {
-            playerIndex = (playerIndex + 1) % 2;
-            currentPlayer = players.get(playerIndex);
+            while (gameboard.getGameState() == PLAYING) {
+                playerIndex = (playerIndex + 1) % 2;
+                currentPlayer = players.get(playerIndex);
 
-            gameboard.drawBoard();
-            makeMove(currentPlayer, gameboard);
-            gameboard.drawBoard();
-        }
-
-        switch (gameboard.getGameState()) {
-            case PLAYING -> throw new IllegalStateException("We should not be here");
-            case DRAW -> {
-                System.out.println("DRAW");
+                gameboard.drawBoard();
+                makeMove(currentPlayer, gameboard);
+                gameboard.drawBoard();
             }
-            case WON -> {
-                System.out.printf("%c Won", currentPlayer.getSymbol().symbol());
+
+            switch (gameboard.getGameState()) {
+                case PLAYING -> throw new IllegalStateException("We should not be here");
+                case DRAW -> {
+                    System.out.println("It's a draw! Press enter to start a new round");
+                }
+                case WON -> {
+                    System.out.printf("\n %c won. Press enter to start a new round", currentPlayer.getSymbol().symbol());
+                }
             }
-        }
+
+            gameboard.resetGame();
+        } while (true);
+
+
     }
 
     public static void makeMove(final Player player, final Gameboard gameboard) {
