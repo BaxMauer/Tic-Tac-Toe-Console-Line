@@ -1,6 +1,5 @@
 package de.maxi_bauer.board;
 
-import de.maxi_bauer.data.GamePositions;
 import de.maxi_bauer.player.PlayerSymbol;
 
 import static de.maxi_bauer.config.GameConfig.BLANK_PLAYER_SYMBOL;

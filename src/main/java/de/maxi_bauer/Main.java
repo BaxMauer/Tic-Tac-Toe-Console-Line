@@ -3,7 +3,6 @@ package de.maxi_bauer;
 import de.maxi_bauer.board.BoringGameboardWinChecker;
 import de.maxi_bauer.board.Gameboard;
 import de.maxi_bauer.board.GameboardWinChecker;
-import de.maxi_bauer.data.GameMove;
 import de.maxi_bauer.player.CommandLinePlayer;
 import de.maxi_bauer.player.Player;
 import de.maxi_bauer.player.PlayerSymbol;
@@ -34,7 +33,7 @@ public class Main {
             gameboard.drawBoard();
 
 
-            gameboard.makeMove(getMove(currentPlayer, gameboard), currentPlayer);
+            makeMove(currentPlayer, gameboard);
             gameboard.drawBoard();
 
 
@@ -43,12 +42,12 @@ public class Main {
         }
     }
 
-    public static GameMove getMove(final Player player, final Gameboard gameboard) {
+    public static void makeMove(final Player player, final Gameboard gameboard) {
         try {
-            return gameboard.validateMove(player.getMove());
+            gameboard.makeMove(player.getMove(), player);
         } catch (RuntimeException ex) {
             System.out.println("The inserted field is not valid. Try again.");
-            return getMove(player, gameboard);
+            makeMove(player, gameboard);
         }
     }
 }

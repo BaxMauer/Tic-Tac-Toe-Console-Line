@@ -1,6 +1,6 @@
 package de.maxi_bauer.rendering;
 
-import de.maxi_bauer.data.GamePositions;
+import de.maxi_bauer.board.GamePositions;
 import de.maxi_bauer.player.PlayerSymbol;
 
 public class CommandLineBoardRenderer implements BoardRenderer {
