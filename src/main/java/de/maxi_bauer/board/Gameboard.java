@@ -6,6 +6,10 @@ import de.maxi_bauer.data.GameState;
 import de.maxi_bauer.player.Player;
 import de.maxi_bauer.rendering.BoardRenderer;
 
+import java.util.Arrays;
+
+import static de.maxi_bauer.config.GameConfig.BLANK_PLAYER_SYMBOL;
+
 public class Gameboard {
     private final GamePositions positions = GamePositions.newPositions(GameConfig.GAME_POSITIONS_SIZE);
     private final BoardRenderer boardRenderer;
@@ -27,13 +31,17 @@ public class Gameboard {
 
     public void makeMove(GameMove move, Player player) {
         positions.makeMove(move, player.getSymbol());
-        positions.positions()[move.row()][move.column()] = player.getSymbol();
-        checkGameState();
+
+        if (winChecker.isGameWon(positions)) {
+            gameState = GameState.WON;
+        } else if (isDraw(positions)) {
+            gameState = GameState.DRAW;
+        }
     }
 
-    public void checkGameState() {
-        if (winChecker.isGameWon(positions)) {
-            this.gameState = GameState.LOST;
-        }
+    private boolean isDraw(final GamePositions positions) {
+        return Arrays.stream(positions.positions())
+                .flatMap(Arrays::stream)
+                .noneMatch(ps -> ps.equals(BLANK_PLAYER_SYMBOL));
     }
 }

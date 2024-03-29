@@ -26,19 +26,26 @@ public class Main {
 
         Gameboard gameboard = new Gameboard(renderer, winChecker);
 
-        int playerIndex = 0;
+        int playerIndex = -1;
         Player currentPlayer = players.getFirst();
 
         while (gameboard.getGameState() == PLAYING) {
-            gameboard.drawBoard();
-
-
-            makeMove(currentPlayer, gameboard);
-            gameboard.drawBoard();
-
-
             playerIndex = (playerIndex + 1) % 2;
             currentPlayer = players.get(playerIndex);
+
+            gameboard.drawBoard();
+            makeMove(currentPlayer, gameboard);
+            gameboard.drawBoard();
+        }
+
+        switch (gameboard.getGameState()) {
+            case PLAYING -> throw new IllegalStateException("We should not be here");
+            case DRAW -> {
+                System.out.println("DRAW");
+            }
+            case WON -> {
+                System.out.printf("%c Won", currentPlayer.getSymbol().symbol());
+            }
         }
     }
 

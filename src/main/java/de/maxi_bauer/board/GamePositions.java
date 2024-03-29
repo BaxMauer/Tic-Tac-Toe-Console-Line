@@ -57,4 +57,15 @@ public record GamePositions(PlayerSymbol[][] positions) {
     public int hashCode() {
         return Arrays.deepHashCode(positions);
     }
+
+    public PlayerSymbol[][] positions() {
+        return positions;
+    }
+
+    @Override
+    public String toString() {
+        return "GamePositions[" +
+                "positions=" + positions + ']';
+    }
+
 }
