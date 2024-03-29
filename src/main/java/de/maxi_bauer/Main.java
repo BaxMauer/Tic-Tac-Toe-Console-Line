@@ -1,5 +1,8 @@
 package de.maxi_bauer;
 
+import de.maxi_bauer.board.BoringGameboardWinChecker;
+import de.maxi_bauer.board.Gameboard;
+import de.maxi_bauer.board.GameboardWinChecker;
 import de.maxi_bauer.data.GameMove;
 import de.maxi_bauer.player.CommandLinePlayer;
 import de.maxi_bauer.player.Player;
@@ -15,13 +18,14 @@ public class Main {
     public static void main(String[] args) {
 
         BoardRenderer renderer = new CommandLineBoardRenderer();
+        GameboardWinChecker winChecker = new BoringGameboardWinChecker();
         List<Player> players = List.of(
                 new CommandLinePlayer(new PlayerSymbol('X')),
                 new CommandLinePlayer(new PlayerSymbol('Y'))
         );
 
 
-        Gameboard gameboard = new Gameboard(renderer);
+        Gameboard gameboard = new Gameboard(renderer, winChecker);
 
         int playerIndex = 0;
         Player currentPlayer = players.getFirst();
