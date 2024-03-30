@@ -35,7 +35,7 @@ public class Main {
                 currentPlayer = players.get(playerIndex);
 
                 gameboard.drawBoard();
-                makeMove(currentPlayer, gameboard);
+                gameboard.makeMove(currentPlayer.getMove(), currentPlayer);
                 gameboard.drawBoard();
             }
 
@@ -51,16 +51,5 @@ public class Main {
 
             gameboard.resetGame();
         } while (true);
-
-
-    }
-
-    public static void makeMove(final Player player, final Gameboard gameboard) {
-        try {
-            gameboard.makeMove(player.getMove(), player);
-        } catch (RuntimeException ex) {
-            System.out.println("The inserted field is not valid. Try again.");
-            makeMove(player, gameboard);
-        }
     }
 }
