@@ -2,7 +2,7 @@ package de.maxi_bauer.board;
 
 import de.maxi_bauer.config.GameConfig;
 import de.maxi_bauer.player.Player;
-import de.maxi_bauer.rendering.BoardRenderer;
+import de.maxi_bauer.rendering.Renderer;
 
 import java.util.Arrays;
 
@@ -10,12 +10,12 @@ import static de.maxi_bauer.config.GameConfig.BLANK_PLAYER_SYMBOL;
 
 public class Gameboard {
     private GamePositions positions = GamePositions.newPositions(GameConfig.GAME_POSITIONS_SIZE);
-    private final BoardRenderer boardRenderer;
+    private final Renderer renderer;
     private final GameboardWinChecker winChecker;
     private GameState gameState = GameState.PLAYING;
 
-    public Gameboard(BoardRenderer boardRenderer, GameboardWinChecker winChecker) {
-        this.boardRenderer = boardRenderer;
+    public Gameboard(Renderer renderer, GameboardWinChecker winChecker) {
+        this.renderer = renderer;
         this.winChecker = winChecker;
     }
 
@@ -24,11 +24,11 @@ public class Gameboard {
     }
 
     public void drawBoard(){
-        boardRenderer.renderBoard(this.positions);
+        renderer.renderBoard(this.positions);
     }
 
-    public void makeMove(GameMove move, Player player) {
-        positions.makeMove(move, player.getSymbol());
+    public void makeMove(Player player) {
+        validateAndMakeMove(player);
 
         if (winChecker.isGameWon(positions)) {
             gameState = GameState.WON;
@@ -50,5 +50,15 @@ public class Gameboard {
     private GamePositions resetGame(GamePositions positions) {
         gameState = GameState.PLAYING;
         return GamePositions.newPositions(positions.positions().length);
+    }
+
+    private void validateAndMakeMove(Player player) {
+        renderer.message(String.format("%c: Please enter the position of your mark (Row:Column):", player.getSymbol().symbol()));
+        try {
+            positions.makeMove(player.getMove(), player.getSymbol());
+        } catch (Exception ex) {
+            renderer.message("The inserted field is not valid. Try again.");
+            validateAndMakeMove(player);
+        }
     }
 }
