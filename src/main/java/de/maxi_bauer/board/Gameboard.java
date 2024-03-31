@@ -66,17 +66,6 @@ public class Gameboard {
         }
     }
 
-    /***
-     * Checks if the game is a draw.
-     * @param positions {@link GamePositions} to be checked.
-     * @return True if the Game is a draw, false otherwise.
-     */
-    private boolean isDraw(final GamePositions positions) {
-        return Arrays.stream(positions.positions())
-                .flatMap(Arrays::stream)
-                .noneMatch(ps -> ps.equals(BLANK_PLAYER_SYMBOL));
-    }
-
     /**
      * Resets the game to its initial state.
      */
@@ -92,6 +81,17 @@ public class Gameboard {
     private GamePositions resetGame(final GamePositions positions) {
         gameState = GameState.PLAYING;
         return GamePositions.newPositions(positions.positions().length);
+    }
+
+    /***
+     * Checks if the game is a draw.
+     * @param positions {@link GamePositions} to be checked.
+     * @return True if the Game is a draw, false otherwise.
+     */
+    private boolean isDraw(final GamePositions positions) {
+        return Arrays.stream(positions.positions())
+                .flatMap(Arrays::stream)
+                .noneMatch(ps -> ps.equals(BLANK_PLAYER_SYMBOL));
     }
 
     private void validateAndMakeMove(final Player player) {

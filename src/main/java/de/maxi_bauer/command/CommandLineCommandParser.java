@@ -47,7 +47,9 @@ public class CommandLineCommandParser implements CommandParser {
                 renderer.renderStatistics(statisticsHandler.getStatistics());
                 readStringFromCommandLine();
             }
-            default -> throw new IllegalArgumentException("Invalid command!");
+            default -> {
+                return Optional.empty();
+            }
         }
 
         return Optional.empty();
@@ -69,7 +71,7 @@ public class CommandLineCommandParser implements CommandParser {
      * @param commandString The command entered by the user.
      * @return The {@link GameCommand} corresponding to the entered command.
      */
-    private GameCommand getCommand(final String commandString) {
+    GameCommand getCommand(final String commandString) {
         if (isGameMove(commandString)) {
             return GameCommand.MOVE;
         }
@@ -98,7 +100,7 @@ public class CommandLineCommandParser implements CommandParser {
      *
      * @return The string entered by the user.
      */
-    private String readStringFromCommandLine() {
+    String readStringFromCommandLine() {
         return scanner.nextLine();
     }
 
@@ -108,7 +110,7 @@ public class CommandLineCommandParser implements CommandParser {
      * @param gameMoveString The entered command string.
      * @return An optional {@link GameMove} extracted from the command string.
      */
-    private Optional<GameMove> extractGameMove(final String gameMoveString) {
+    Optional<GameMove> extractGameMove(final String gameMoveString) {
         final String[] result = gameMoveString.split(":");
         if (result.length != 2) {
             return Optional.empty();
@@ -129,7 +131,7 @@ public class CommandLineCommandParser implements CommandParser {
      * @param commandString The entered command string.
      * @return True if the command string corresponds to a game move, otherwise false.
      */
-    private boolean isGameMove(final String commandString) {
+    boolean isGameMove(final String commandString) {
         return commandString.matches("[1-9]+:[1-9]+");
     }
 
@@ -139,7 +141,7 @@ public class CommandLineCommandParser implements CommandParser {
      * @param commandString The entered command string.
      * @return True if the command string corresponds to restarting the game, otherwise false.
      */
-    private boolean isGameRestart(final String commandString) {
+    boolean isGameRestart(final String commandString) {
         return commandString.equalsIgnoreCase("");
     }
 
@@ -149,7 +151,7 @@ public class CommandLineCommandParser implements CommandParser {
      * @param commandString The entered command string.
      * @return True if the command string corresponds to getting game statistics, otherwise false.
      */
-    private boolean isGetStatistics(final String commandString) {
+    boolean isGetStatistics(final String commandString) {
         return commandString.equalsIgnoreCase("p");
     }
 
@@ -159,7 +161,7 @@ public class CommandLineCommandParser implements CommandParser {
      * @param commandString The entered command string.
      * @return True if the command string corresponds to ending the game, otherwise false.
      */
-    private boolean isGameEnd(final String commandString) {
+    boolean isGameEnd(final String commandString) {
         return commandString.equalsIgnoreCase("e");
     }
 }
