@@ -11,7 +11,7 @@ navigate to the project directory and execute the following commands:
 
 ```bash
 ./mvnw clean package
-java -jar target/Tic-Tac-Toe-Console-Line-1.0-SNAPSHOT-jar-with-dependencies.jar
+java -jar target/Tic-Tac-Toe-Console-Line-1.1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 
 The project requires Java 21 to complile and run.
