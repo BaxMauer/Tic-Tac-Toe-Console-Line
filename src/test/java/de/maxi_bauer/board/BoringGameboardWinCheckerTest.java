@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static de.maxi_bauer.config.GameConfig.BLANK_PLAYER_SYMBOL;
+import static de.maxi_bauer.config.GameConstants.BLANK_PLAYER_SYMBOL;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

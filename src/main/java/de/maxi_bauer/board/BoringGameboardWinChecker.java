@@ -2,10 +2,19 @@ package de.maxi_bauer.board;
 
 import de.maxi_bauer.player.PlayerSymbol;
 
-import static de.maxi_bauer.config.GameConfig.BLANK_PLAYER_SYMBOL;
+import static de.maxi_bauer.config.GameConstants.BLANK_PLAYER_SYMBOL;
 
+/**
+ * Implementation of {@link GameboardWinChecker} that checks for wins in a standard boring way.
+ */
 public class BoringGameboardWinChecker implements GameboardWinChecker {
 
+    /**
+     * Checks if the game is won based on the current positions on the game board.
+     *
+     * @param gamePositions The positions on the game board.
+     * @return True if the game is won, otherwise false.
+     */
     @Override
     public boolean isGameWon(final GamePositions gamePositions) {
         final int gameSize = gamePositions.positions().length;
