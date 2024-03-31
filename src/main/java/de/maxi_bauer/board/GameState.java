@@ -1,4 +1,4 @@
-package de.maxi_bauer.data;
+package de.maxi_bauer.board;
 
 public enum GameState {
     PLAYING,

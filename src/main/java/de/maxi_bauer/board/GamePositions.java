@@ -1,6 +1,5 @@
 package de.maxi_bauer.board;
 
-import de.maxi_bauer.data.GameMove;
 import de.maxi_bauer.player.PlayerSymbol;
 
 import java.util.Arrays;
