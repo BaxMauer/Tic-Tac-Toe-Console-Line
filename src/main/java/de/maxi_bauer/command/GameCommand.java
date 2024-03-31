@@ -1,4 +1,4 @@
-package de.maxi_bauer.menu;
+package de.maxi_bauer.command;
 
 public enum GameCommand {
     MOVE,

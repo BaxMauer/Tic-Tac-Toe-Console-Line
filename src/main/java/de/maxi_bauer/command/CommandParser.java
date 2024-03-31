@@ -1,9 +1,11 @@
-package de.maxi_bauer.menu;
+package de.maxi_bauer.command;
 
 import de.maxi_bauer.board.GameMove;
 
+import java.util.Optional;
+
 public interface CommandParser {
-    GameMove getMove();
+    Optional<GameMove> getMove();
 
     GameCommand getGameRestart();
 }

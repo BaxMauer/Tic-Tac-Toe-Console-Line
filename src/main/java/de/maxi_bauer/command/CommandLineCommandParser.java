@@ -1,19 +1,26 @@
-package de.maxi_bauer.menu;
+package de.maxi_bauer.command;
 
 import de.maxi_bauer.board.GameMove;
+import de.maxi_bauer.rendering.Renderer;
+import de.maxi_bauer.statistics.StatisticsHandler;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 public class CommandLineCommandParser implements CommandParser {
 
+    private final StatisticsHandler statisticsHandler;
+    private final Renderer renderer;
     Scanner scanner;
 
-    public CommandLineCommandParser() {
+    public CommandLineCommandParser(final StatisticsHandler statisticsHandler, final Renderer renderer) {
+        this.statisticsHandler = statisticsHandler;
+        this.renderer = renderer;
         this.scanner = new Scanner(System.in);
     }
 
     @Override
-    public GameMove getMove() {
+    public Optional<GameMove> getMove() {
         final String commandString = readStringFromCommandLine();
 
         switch (getCommand(commandString)) {
@@ -23,12 +30,13 @@ public class CommandLineCommandParser implements CommandParser {
             case END -> endGame();
 
             case STATISTICS -> {
-                return new GameMove(1, 1);
+                renderer.renderStatistics(statisticsHandler.getStatistics());
+                readStringFromCommandLine();
             }
             default -> throw new IllegalArgumentException("Invalid command!");
         }
 
-        return null;
+        return Optional.empty();
     }
 
     @Override
@@ -61,16 +69,19 @@ public class CommandLineCommandParser implements CommandParser {
         return scanner.nextLine();
     }
 
-    private GameMove extractGameMove(final String gameMoveString) {
+    private Optional<GameMove> extractGameMove(final String gameMoveString) {
         final String[] result = gameMoveString.split(":");
         if (result.length != 2) {
-            throw new IllegalArgumentException();
+            return Optional.empty();
         }
-        final int row = Integer.parseInt(result[0]) - 1;
-        final int col = Integer.parseInt(result[1]) - 1;
 
-
-        return new GameMove(row, col);
+        try {
+            final int row = Integer.parseInt(result[0]) - 1;
+            final int col = Integer.parseInt(result[1]) - 1;
+            return Optional.of(new GameMove(row, col));
+        } catch (final NumberFormatException e) {
+            return Optional.empty();
+        }
     }
 
     private boolean isGameMove(final String commandString) {

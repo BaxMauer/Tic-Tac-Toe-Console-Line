@@ -3,6 +3,7 @@ package de.maxi_bauer.board;
 import de.maxi_bauer.player.PlayerSymbol;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import static de.maxi_bauer.config.GameConfig.BLANK_PLAYER_SYMBOL_CHAR;
 
@@ -21,9 +22,12 @@ public record GamePositions(PlayerSymbol[][] positions) {
         return new GamePositions(positions);
     }
 
-    public void makeMove(final GameMove move, final PlayerSymbol playerSymbol) {
-        validateMove(move);
-        positions[move.row()][move.column()] = playerSymbol;
+    public Optional<GameMove> makeMove(final GameMove move, final PlayerSymbol playerSymbol) {
+        final Optional<GameMove> gameMove = validateMove(move);
+        if (gameMove.isPresent()) {
+            positions[move.row()][move.column()] = playerSymbol;
+        }
+        return gameMove;
     }
 
     private boolean isCellAvailable(final GameMove move) {
@@ -31,13 +35,15 @@ public record GamePositions(PlayerSymbol[][] positions) {
         return gameCell.symbol() == BLANK_PLAYER_SYMBOL_CHAR;
     }
 
-    public void validateMove(final GameMove move) {
+    public Optional<GameMove> validateMove(final GameMove move) {
         if (!validateMoveBounds(move.row()) || !validateMoveBounds(move.column())) {
-            throw new IllegalArgumentException();
+            return Optional.empty();
         }
         if (!isCellAvailable(move)) {
-            throw new IllegalArgumentException();
+            return Optional.empty();
         }
+
+        return Optional.of(move);
     }
 
     private boolean validateMoveBounds(final int value) {
@@ -64,7 +70,7 @@ public record GamePositions(PlayerSymbol[][] positions) {
     @Override
     public String toString() {
         return "GamePositions[" +
-                "positions=" + positions + ']';
+                "positions=" + Arrays.deepToString(positions) + ']';
     }
 
 }

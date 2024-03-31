@@ -3,8 +3,8 @@ package de.maxi_bauer;
 import de.maxi_bauer.board.BoringGameboardWinChecker;
 import de.maxi_bauer.board.Gameboard;
 import de.maxi_bauer.board.GameboardWinChecker;
-import de.maxi_bauer.menu.CommandLineCommandParser;
-import de.maxi_bauer.menu.CommandParser;
+import de.maxi_bauer.command.CommandLineCommandParser;
+import de.maxi_bauer.command.CommandParser;
 import de.maxi_bauer.player.CommandLinePlayer;
 import de.maxi_bauer.player.Player;
 import de.maxi_bauer.player.PlayerSymbol;
@@ -24,16 +24,15 @@ public class Main {
 
         final Renderer renderer = new CommandLineRenderer();
         final GameboardWinChecker winChecker = new BoringGameboardWinChecker();
-        final CommandParser commandParser = new CommandLineCommandParser();
         final StatisticsHandler statisticsHandler = new InMemoryStatistics();
+
+        final CommandParser commandParser = new CommandLineCommandParser(statisticsHandler, renderer);
+        final Gameboard gameboard = new Gameboard(renderer, winChecker, statisticsHandler);
 
         final List<Player> players = List.of(
                 new CommandLinePlayer(new PlayerSymbol('X'), commandParser),
                 new CommandLinePlayer(new PlayerSymbol('Y'), commandParser)
         );
-
-
-        final Gameboard gameboard = new Gameboard(renderer, winChecker, statisticsHandler);
 
         Player currentPlayer = players.getFirst();
         int playerIndex = 0;

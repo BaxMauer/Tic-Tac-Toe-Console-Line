@@ -6,6 +6,7 @@ import de.maxi_bauer.rendering.Renderer;
 import de.maxi_bauer.statistics.StatisticsHandler;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import static de.maxi_bauer.config.GameConfig.BLANK_PLAYER_SYMBOL;
 
@@ -35,7 +36,7 @@ public class Gameboard {
 
         if (winChecker.isGameWon(positions)) {
             gameState = GameState.WON;
-            statisticsHandler.registerWin(player);
+            statisticsHandler.registerWin(player.getSymbol());
         } else if (isDraw(positions)) {
             gameState = GameState.DRAW;
         }
@@ -59,8 +60,12 @@ public class Gameboard {
     private void validateAndMakeMove(final Player player) {
         renderer.message(String.format("%c: Please enter the position of your mark (Row:Column):", player.getSymbol().symbol()));
         try {
-            positions.makeMove(player.getMove(), player.getSymbol());
-        } catch (final Exception ex) {
+            final Optional<GameMove> move = player.getMove();
+            if (move.isEmpty() || positions.makeMove(move.get(), player.getSymbol()).isEmpty()) {
+                renderer.message("The inserted field is not valid. Try again.");
+                validateAndMakeMove(player);
+            }
+        } catch (final IllegalArgumentException | IllegalStateException ex) {
             renderer.message("The inserted field is not valid. Try again.");
             validateAndMakeMove(player);
         }

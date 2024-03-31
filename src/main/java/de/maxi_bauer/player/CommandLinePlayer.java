@@ -1,8 +1,9 @@
 package de.maxi_bauer.player;
 
 import de.maxi_bauer.board.GameMove;
-import de.maxi_bauer.menu.CommandParser;
+import de.maxi_bauer.command.CommandParser;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 public class CommandLinePlayer implements Player {
@@ -17,7 +18,7 @@ public class CommandLinePlayer implements Player {
     }
 
     @Override
-    public GameMove getMove() {
+    public Optional<GameMove> getMove() {
         return commandLineParser.getMove();
     }
 
