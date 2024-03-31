@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static de.maxi_bauer.config.GameConfig.BLANK_PLAYER_SYMBOL;
+import static de.maxi_bauer.config.GameConstants.BLANK_PLAYER_SYMBOL;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -28,62 +28,62 @@ public class BoringGameboardWinCheckerTest {
 
     @ParameterizedTest
     @MethodSource("positionSizeParameters")
-    void isGameWon_WinInRows_ReturnsTrue(int size) {
+    void isGameWon_WinInRows_ReturnsTrue(final int size) {
         // Arrange
-        PlayerSymbol[][] positions = new PlayerSymbol[size][size];
+        final PlayerSymbol[][] positions = new PlayerSymbol[size][size];
         for (int testRow = 0; testRow < size; testRow++) {
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < size; j++) {
                     positions[i][j] = i == testRow ? X_SYMBOL : BLANK_PLAYER_SYMBOL;
                 }
             }
-            GamePositions gamePositions = new GamePositions(positions);
+            final GamePositions gamePositions = new GamePositions(positions);
 
             // Act
-            boolean result = winChecker.isGameWon(gamePositions);
+            final boolean result = winChecker.isGameWon(gamePositions);
 
             // Assert
-            String resultString = "Testing row " + testRow;
+            final String resultString = "Testing row " + testRow;
             assertTrue(result, resultString);
         }
     }
 
     @ParameterizedTest
     @MethodSource("positionSizeParameters")
-    void isGameWon_WinInColumns_ReturnsTrue(int size) {
+    void isGameWon_WinInColumns_ReturnsTrue(final int size) {
         // Arrange
-        PlayerSymbol[][] positions = new PlayerSymbol[size][size];
+        final PlayerSymbol[][] positions = new PlayerSymbol[size][size];
         for (int testColumn = 0; testColumn < size; testColumn++) {
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < size; j++) {
                     positions[j][i] = i == testColumn ? X_SYMBOL : BLANK_PLAYER_SYMBOL;
                 }
             }
-            GamePositions gamePositions = new GamePositions(positions);
+            final GamePositions gamePositions = new GamePositions(positions);
 
             // Act
-            boolean result = winChecker.isGameWon(gamePositions);
+            final boolean result = winChecker.isGameWon(gamePositions);
 
             // Assert
-            String resultString = "Testing column " + testColumn;
+            final String resultString = "Testing column " + testColumn;
             assertTrue(result, resultString);
         }
     }
 
     @ParameterizedTest
     @MethodSource("positionSizeParameters")
-    void isGameWon_WinInDiagonal_ReturnsTrue(int size) {
+    void isGameWon_WinInDiagonal_ReturnsTrue(final int size) {
         // Arrange
-        PlayerSymbol[][] positions = new PlayerSymbol[size][size];
+        final PlayerSymbol[][] positions = new PlayerSymbol[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 positions[i][j] = i == j ? X_SYMBOL : BLANK_PLAYER_SYMBOL;
             }
         }
-        GamePositions gamePositions = new GamePositions(positions);
+        final GamePositions gamePositions = new GamePositions(positions);
 
         // Act
-        boolean result = winChecker.isGameWon(gamePositions);
+        final boolean result = winChecker.isGameWon(gamePositions);
 
         // Assert
         assertTrue(result);
@@ -91,18 +91,18 @@ public class BoringGameboardWinCheckerTest {
 
     @ParameterizedTest
     @MethodSource("positionSizeParameters")
-    void isGameWon_WinInAntiDiagonal_ReturnsTrue(int size) {
+    void isGameWon_WinInAntiDiagonal_ReturnsTrue(final int size) {
         // Arrange
-        PlayerSymbol[][] positions = new PlayerSymbol[size][size];
+        final PlayerSymbol[][] positions = new PlayerSymbol[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = size - 1; j >= 0; j--) {
                 positions[i][j] = i == (size - 1) - j ? X_SYMBOL : BLANK_PLAYER_SYMBOL;
             }
         }
-        GamePositions gamePositions = new GamePositions(positions);
+        final GamePositions gamePositions = new GamePositions(positions);
 
         // Act
-        boolean result = winChecker.isGameWon(gamePositions);
+        final boolean result = winChecker.isGameWon(gamePositions);
 
         // Assert
         assertTrue(result);
@@ -110,18 +110,18 @@ public class BoringGameboardWinCheckerTest {
 
     @ParameterizedTest
     @MethodSource("positionSizeParameters")
-    void isGameWon_NoWin_ReturnsFalse(int size) {
+    void isGameWon_NoWin_ReturnsFalse(final int size) {
         // Arrange
-        PlayerSymbol[][] positions = new PlayerSymbol[size][size];
+        final PlayerSymbol[][] positions = new PlayerSymbol[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 positions[i][j] = (i == size - 1 && j == size - 1) ? X_SYMBOL : BLANK_PLAYER_SYMBOL;
             }
         }
-        GamePositions gamePositions = new GamePositions(positions);
+        final GamePositions gamePositions = new GamePositions(positions);
 
         // Act
-        boolean result = winChecker.isGameWon(gamePositions);
+        final boolean result = winChecker.isGameWon(gamePositions);
 
         // Assert
         assertFalse(result);

@@ -2,12 +2,15 @@ package de.maxi_bauer.player;
 
 import java.util.Objects;
 
+/**
+ * Represents a symbol associated with a player.
+ */
 public record PlayerSymbol(char symbol) {
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PlayerSymbol that = (PlayerSymbol) o;
+        final PlayerSymbol that = (PlayerSymbol) o;
         return symbol == that.symbol;
     }
 
