@@ -9,8 +9,8 @@ import static de.maxi_bauer.config.GameConfig.BLANK_PLAYER_SYMBOL_CHAR;
 public record GamePositions(PlayerSymbol[][] positions) {
 
     public static GamePositions newPositions(final int gamePositionsSize) {
-        PlayerSymbol defaultPlayerSymbol = new PlayerSymbol(BLANK_PLAYER_SYMBOL_CHAR);
-        PlayerSymbol[][] positions = new PlayerSymbol[gamePositionsSize][gamePositionsSize];
+        final PlayerSymbol defaultPlayerSymbol = new PlayerSymbol(BLANK_PLAYER_SYMBOL_CHAR);
+        final PlayerSymbol[][] positions = new PlayerSymbol[gamePositionsSize][gamePositionsSize];
 
         for (int i = 0; i < gamePositionsSize; i++) {
             for (int j = 0; j < gamePositionsSize; j++) {
@@ -21,17 +21,17 @@ public record GamePositions(PlayerSymbol[][] positions) {
         return new GamePositions(positions);
     }
 
-    public void makeMove(GameMove move, PlayerSymbol playerSymbol) {
+    public void makeMove(final GameMove move, final PlayerSymbol playerSymbol) {
         validateMove(move);
         positions[move.row()][move.column()] = playerSymbol;
     }
 
-    private boolean isCellAvailable(GameMove move) {
-        PlayerSymbol gameCell = positions[move.row()][move.column()];
+    private boolean isCellAvailable(final GameMove move) {
+        final PlayerSymbol gameCell = positions[move.row()][move.column()];
         return gameCell.symbol() == BLANK_PLAYER_SYMBOL_CHAR;
     }
 
-    public void validateMove(GameMove move) {
+    public void validateMove(final GameMove move) {
         if (!validateMoveBounds(move.row()) || !validateMoveBounds(move.column())) {
             throw new IllegalArgumentException();
         }
@@ -45,10 +45,10 @@ public record GamePositions(PlayerSymbol[][] positions) {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GamePositions that = (GamePositions) o;
+        final GamePositions that = (GamePositions) o;
         return Arrays.deepEquals(positions, that.positions);
     }
 

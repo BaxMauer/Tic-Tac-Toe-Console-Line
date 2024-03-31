@@ -7,13 +7,13 @@ import static de.maxi_bauer.config.GameConfig.BLANK_PLAYER_SYMBOL;
 public class BoringGameboardWinChecker implements GameboardWinChecker {
 
     @Override
-    public boolean isGameWon(GamePositions gamePositions) {
-        int gameSize = gamePositions.positions().length;
-        PlayerSymbol[][] positions = gamePositions.positions();
+    public boolean isGameWon(final GamePositions gamePositions) {
+        final int gameSize = gamePositions.positions().length;
+        final PlayerSymbol[][] positions = gamePositions.positions();
 
         // check rows
         for (int i = 0; i < gameSize; i++) {
-            PlayerSymbol checkPlayer = positions[i][0];
+            final PlayerSymbol checkPlayer = positions[i][0];
             for (int j = 1; j < gameSize; j++) {
                 if (positions[i][j] != checkPlayer || checkPlayer.equals(BLANK_PLAYER_SYMBOL)) {
                     break;
@@ -26,7 +26,7 @@ public class BoringGameboardWinChecker implements GameboardWinChecker {
 
         // check columns
         for (int i = 0; i < gameSize; i++) {
-            PlayerSymbol checkPlayer = positions[0][i];
+            final PlayerSymbol checkPlayer = positions[0][i];
             for (int j = 1; j < gameSize; j++) {
                 if (positions[j][i] != checkPlayer || checkPlayer.equals(BLANK_PLAYER_SYMBOL)) {
                     break;
@@ -38,7 +38,7 @@ public class BoringGameboardWinChecker implements GameboardWinChecker {
         }
 
         // check diagonal
-        PlayerSymbol checkPlayerDia = positions[0][0];
+        final PlayerSymbol checkPlayerDia = positions[0][0];
         for (int i = 1; i < gameSize; i++) {
             if (positions[i][i] != checkPlayerDia || checkPlayerDia.equals(BLANK_PLAYER_SYMBOL)) {
                 break;
@@ -49,7 +49,7 @@ public class BoringGameboardWinChecker implements GameboardWinChecker {
         }
 
         // check anti diagonal
-        PlayerSymbol checkPlayerAntiDia = positions[0][gameSize - 1];
+        final PlayerSymbol checkPlayerAntiDia = positions[0][gameSize - 1];
         for (int i = gameSize - 2, j = 1; i >= 0; i--, j++) {
             if (positions[j][i] != checkPlayerAntiDia || checkPlayerAntiDia.equals(BLANK_PLAYER_SYMBOL)) {
                 break;

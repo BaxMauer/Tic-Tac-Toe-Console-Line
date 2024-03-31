@@ -14,7 +14,7 @@ public class Gameboard {
     private final GameboardWinChecker winChecker;
     private GameState gameState = GameState.PLAYING;
 
-    public Gameboard(Renderer renderer, GameboardWinChecker winChecker) {
+    public Gameboard(final Renderer renderer, final GameboardWinChecker winChecker) {
         this.renderer = renderer;
         this.winChecker = winChecker;
     }
@@ -27,7 +27,7 @@ public class Gameboard {
         renderer.renderBoard(this.positions);
     }
 
-    public void makeMove(Player player) {
+    public void makeMove(final Player player) {
         validateAndMakeMove(player);
 
         if (winChecker.isGameWon(positions)) {
@@ -47,16 +47,16 @@ public class Gameboard {
         this.positions = resetGame(this.positions);
     }
 
-    private GamePositions resetGame(GamePositions positions) {
+    private GamePositions resetGame(final GamePositions positions) {
         gameState = GameState.PLAYING;
         return GamePositions.newPositions(positions.positions().length);
     }
 
-    private void validateAndMakeMove(Player player) {
+    private void validateAndMakeMove(final Player player) {
         renderer.message(String.format("%c: Please enter the position of your mark (Row:Column):", player.getSymbol().symbol()));
         try {
             positions.makeMove(player.getMove(), player.getSymbol());
-        } catch (Exception ex) {
+        } catch (final Exception ex) {
             renderer.message("The inserted field is not valid. Try again.");
             validateAndMakeMove(player);
         }

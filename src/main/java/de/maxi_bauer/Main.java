@@ -16,19 +16,19 @@ import java.util.List;
 import static de.maxi_bauer.board.GameState.PLAYING;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
 
-        Renderer renderer = new CommandLineRenderer();
-        GameboardWinChecker winChecker = new BoringGameboardWinChecker();
-        CommandParser commandParser = new CommandLineCommandParser();
+        final Renderer renderer = new CommandLineRenderer();
+        final GameboardWinChecker winChecker = new BoringGameboardWinChecker();
+        final CommandParser commandParser = new CommandLineCommandParser();
 
-        List<Player> players = List.of(
+        final List<Player> players = List.of(
                 new CommandLinePlayer(new PlayerSymbol('X'), commandParser),
                 new CommandLinePlayer(new PlayerSymbol('Y'), commandParser)
         );
 
 
-        Gameboard gameboard = new Gameboard(renderer, winChecker);
+        final Gameboard gameboard = new Gameboard(renderer, winChecker);
 
         do {
             int playerIndex = -1;

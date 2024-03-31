@@ -8,13 +8,13 @@ public class CommandLineRenderer implements Renderer {
     public void renderBoard(final GamePositions gamePositions) {
         clearConsole();
 
-        PlayerSymbol[][] positions = gamePositions.positions();
+        final PlayerSymbol[][] positions = gamePositions.positions();
 
         for (int rowIdx = 0; rowIdx < positions.length; rowIdx++) {
-            PlayerSymbol[] row = positions[rowIdx];
+            final PlayerSymbol[] row = positions[rowIdx];
 
             for (int colIdx = 0; colIdx < row.length; colIdx++) {
-                PlayerSymbol cell = row[colIdx];
+                final PlayerSymbol cell = row[colIdx];
                 System.out.printf(" %c ", cell.symbol());
                 if (colIdx != row.length - 1) {
                     System.out.print("|");
@@ -32,7 +32,7 @@ public class CommandLineRenderer implements Renderer {
     }
 
     @Override
-    public void message(String message) {
+    public void message(final String message) {
         System.out.println(message);
     }
 
@@ -43,7 +43,7 @@ public class CommandLineRenderer implements Renderer {
             } else {
                 System.out.print("\033[H\033[2J");
             }
-        } catch (Exception ignored) {
+        } catch (final Exception ignored) {
             throw new IllegalStateException("Clearing the console has gone horribly wrong!");
         }
     }

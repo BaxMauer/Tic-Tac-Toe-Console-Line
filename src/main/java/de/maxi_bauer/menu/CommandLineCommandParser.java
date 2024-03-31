@@ -14,7 +14,7 @@ public class CommandLineCommandParser implements CommandParser {
 
     @Override
     public GameMove getMove() {
-        String commandString = readStringFromCommandLine();
+        final String commandString = readStringFromCommandLine();
 
         switch (getCommand(commandString)) {
             case MOVE -> {
@@ -62,12 +62,12 @@ public class CommandLineCommandParser implements CommandParser {
     }
 
     private GameMove extractGameMove(final String gameMoveString) {
-        String[] result = gameMoveString.split(":");
+        final String[] result = gameMoveString.split(":");
         if (result.length != 2) {
             throw new IllegalArgumentException();
         }
-        int row = Integer.parseInt(result[0]) - 1;
-        int col = Integer.parseInt(result[1]) - 1;
+        final int row = Integer.parseInt(result[0]) - 1;
+        final int col = Integer.parseInt(result[1]) - 1;
 
 
         return new GameMove(row, col);
