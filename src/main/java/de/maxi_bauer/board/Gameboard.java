@@ -3,6 +3,7 @@ package de.maxi_bauer.board;
 import de.maxi_bauer.config.GameConfig;
 import de.maxi_bauer.player.Player;
 import de.maxi_bauer.rendering.Renderer;
+import de.maxi_bauer.statistics.StatisticsHandler;
 
 import java.util.Arrays;
 
@@ -12,11 +13,13 @@ public class Gameboard {
     private GamePositions positions = GamePositions.newPositions(GameConfig.GAME_POSITIONS_SIZE);
     private final Renderer renderer;
     private final GameboardWinChecker winChecker;
+    private final StatisticsHandler statisticsHandler;
     private GameState gameState = GameState.PLAYING;
 
-    public Gameboard(final Renderer renderer, final GameboardWinChecker winChecker) {
+    public Gameboard(final Renderer renderer, final GameboardWinChecker winChecker, final StatisticsHandler statisticsHandler) {
         this.renderer = renderer;
         this.winChecker = winChecker;
+        this.statisticsHandler = statisticsHandler;
     }
 
     public GameState getGameState() {
@@ -32,6 +35,7 @@ public class Gameboard {
 
         if (winChecker.isGameWon(positions)) {
             gameState = GameState.WON;
+            statisticsHandler.registerWin(player);
         } else if (isDraw(positions)) {
             gameState = GameState.DRAW;
         }
