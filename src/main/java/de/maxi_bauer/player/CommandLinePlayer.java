@@ -8,8 +8,8 @@ import java.util.Scanner;
 
 public class CommandLinePlayer implements Player {
     private final CommandParser commandLineParser;
-    PlayerSymbol playerSymbol;
-    Scanner scanner;
+    final PlayerSymbol playerSymbol;
+    final Scanner scanner;
 
     public CommandLinePlayer(final PlayerSymbol symbol, final CommandParser commandLineParser) {
         this.playerSymbol = symbol;

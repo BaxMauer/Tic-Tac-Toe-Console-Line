@@ -42,9 +42,9 @@ public class CommandLineRenderer implements Renderer {
     }
 
     @Override
-    public void renderStatistics(GameStatistics statistics) {
+    public void renderStatistics(final GameStatistics statistics) {
 
-        Map<PlayerSymbol, Long> wins = statistics
+        final Map<PlayerSymbol, Long> wins = statistics
                 .wins()
                 .stream()
                 .collect(Collectors.groupingBy(GameWin::winningPlayerSymbol, Collectors.counting()));

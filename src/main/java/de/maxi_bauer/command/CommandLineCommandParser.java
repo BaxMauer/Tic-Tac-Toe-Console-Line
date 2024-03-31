@@ -11,7 +11,7 @@ public class CommandLineCommandParser implements CommandParser {
 
     private final StatisticsHandler statisticsHandler;
     private final Renderer renderer;
-    Scanner scanner;
+    final Scanner scanner;
 
     public CommandLineCommandParser(final StatisticsHandler statisticsHandler, final Renderer renderer) {
         this.statisticsHandler = statisticsHandler;
